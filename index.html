@@ -338,34 +338,6 @@ body[data-theme="dark"]{background:
   body[data-theme="auto"] .tstat{background:rgba(255,255,255,.05);border-color:rgba(129,140,248,.15)}
 }
 
-/* === 21.5 杰哥800题(扫描版原图刷题+答案对照) === */
-.gt-grid{display:grid;grid-template-columns:1fr;gap:16px}
-.gt-grid.dual{grid-template-columns:1fr 1fr}
-.gt-pane{border:1px solid var(--border);border-radius:var(--r-md);background:var(--card);padding:14px;min-width:0;transition:var(--tx)}
-.gt-pane.active{border-color:var(--pri-border);box-shadow:0 0 0 3px var(--pri-border)}
-.gt-head{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:10px}
-.gt-head .gt-nm{font-size:15px;font-weight:800;margin-right:2px}
-.gt-head .chip{font-size:14px;padding:2px 9px;font-weight:700}
-.gt-imgbox{border:1px solid var(--line);border-radius:var(--r-sm);background:var(--bg);overflow:auto;max-height:74vh;text-align:center;touch-action:pan-x pan-y pinch-zoom;overscroll-behavior:contain}
-.gt-imgbox .gt-img{display:block;width:100%;max-width:100%;height:auto;margin:0 auto;cursor:zoom-in;user-select:none;-webkit-user-drag:none;-webkit-touch-callout:none}
-.gt-imgbox .gt-img.actual{width:auto;max-width:none;cursor:zoom-out}
-.gt-ctl{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:10px}
-.gt-ctl .btn{padding:8px 12px}
-.gt-ctl .gt-jump{width:74px;text-align:center;padding:8px 6px}
-.gt-tip{font-size:15px;color:var(--dim);margin-top:8px;line-height:1.5}
-.gt-seg{display:flex;gap:8px;flex-wrap:wrap}
-.gt-prow{display:flex;align-items:center;gap:10px;font-size:15px;color:var(--sub);margin-top:10px;flex-wrap:wrap}
-.gt-prow .gt-pname{font-weight:700;color:var(--text);flex:none}
-.gt-prow .gt-bar{flex:1;min-width:80px;height:7px;border-radius:4px;background:var(--bg);overflow:hidden}
-.gt-prow .gt-bar i{display:block;height:100%;background:var(--grad-pri);border-radius:4px;transition:width .4s ease}
-.gt-prow b{color:var(--pri);font-variant-numeric:tabular-nums}
-.gt-sec{margin-bottom:18px}
-.gt-sec .gt-sectitle{font-size:15px;font-weight:800;color:var(--sub);margin:0 0 10px;padding-left:8px;border-left:3px solid var(--pri)}
-.gt-chap{cursor:pointer;user-select:none}
-.gt-chap .gt-q{display:flex;gap:6px;flex-wrap:wrap;margin-top:2px}
-.gt-chap .gt-q .chip{font-size:14px;padding:2px 9px}
-.gt-chap:focus-visible{outline:2px solid var(--pri);outline-offset:2px}
-@media (max-width:820px){.gt-grid.dual{grid-template-columns:1fr}}
 
 /* === 21.6 杰哥800题·纯文本(结构化题库入口) === */
 .gtt-stat{display:grid;grid-template-columns:repeat(auto-fit,minmax(108px,1fr));gap:10px;margin-top:6px}
@@ -492,7 +464,6 @@ var LIB=[
  {id:"news", ic:"📰",n:"时政",sub:"12条带考点"},
  {id:"cards",ic:"📖",n:"背诵库",sub:"22张卡"},
  {id:"store",ic:"📦",n:"考纲资料",sub:"4官方链接"},
- {id:"gt800",ic:"🧮",n:"杰哥800题",sub:"800题·图片刷题+答案对照"},
  {id:"gt800t",ic:"📝",n:"杰哥800题·纯文本",sub:"800题·题答对照·离线可刷"}
 ];
 var TOOLS=[
@@ -1345,333 +1316,11 @@ register("store",function(){
   return h;
 });
 
-/* ============================================================
-   资料区 · 杰哥800题(扫描版原图 · 图片刷题 + 答案对照)
-   ============================================================ */
-var GT_BOOKS={ti:{n:"习题册",total:158,ic:"📘"},ans:{n:"答案册",total:178,ic:"📗"}};
-var GT_CHAP=[
- {sec:"基础部分",items:[
-   {n:"第一章 函数 极限 连续",q:[["填空","1-44"],["选择","216-248"]]},
-   {n:"第二章 导数与微分",q:[["填空","45-79"],["选择","249-263"]]},
-   {n:"第三章 不定积分",q:[["填空","80-124"],["选择","264-270"]]},
-   {n:"第四章 定积分与反常积分",q:[["填空","125-149"],["选择","271-281"]]},
-   {n:"第五章 微分方程",q:[["填空","150-161"],["选择","282-291"]]},
-   {n:"第六章 多元函数微分学",q:[["填空","162-175"],["选择","292-298"]]},
-   {n:"第七章 二重积分",q:[["填空","176-183"],["选择","299-306"]]},
-   {n:"第八章 曲线积分",q:[["填空","184-188"],["选择","307-310"]]},
-   {n:"第九章 无穷级数",q:[["填空","189-215"],["选择","311-327"]]}
- ]},
- {sec:"强化部分",items:[
-   {n:"第一章 函数 极限 连续",q:[["填空","328-363"],["选择","509-534"],["解答","600-633"]]},
-   {n:"第二章 导数与微分",q:[["填空","364-388"],["选择","535-550"],["解答","634-653"]]},
-   {n:"第三章 不定积分",q:[["填空","389-403"],["选择","551-555"],["解答","654-674"]]},
-   {n:"第四章 定积分与反常积分",q:[["填空","404-424"],["选择","556-566"],["解答","675-695"]]},
-   {n:"第五章 微分方程",q:[["填空","425-433"],["选择","567-573"],["解答","696-705"]]},
-   {n:"第六章 多元函数微分学",q:[["填空","434-440"],["选择","574-582"],["解答","706-725"]]},
-   {n:"第七章 二重积分",q:[["填空","441-448"],["选择","583-587"],["解答","726-735"]]},
-   {n:"第八章 曲线积分",q:[["填空","449-452"],["选择","588-589"],["解答","736-742"]]},
-   {n:"第九章 无穷级数",q:[["填空","453-481"],["选择","590-599"],["解答","743-764"]]},
-   {n:"第十章 向量代数与空间解析几何",q:[["填空","482-508"],["证明","765-800"]]}
- ]}
-];
-var GT_KEY="zsb6_gt800";
-var GTSTATE=null,GTFOCUS="ti";
-
-/* 读状态(带默认值与越界修正) */
-function gtState(){
-  var s=load(GT_KEY,null);
-  if(!s||typeof s!=="object")s={};
-  if(s.book!=="ti"&&s.book!=="ans")s.book="ti";
-  s.dual=!!s.dual;
-  if(!s.page||typeof s.page!=="object")s.page={};
-  s.page.ti=gtClamp("ti",s.page.ti);
-  s.page.ans=gtClamp("ans",s.page.ans);
-  if(!s.done||typeof s.done!=="object")s.done={};
-  if(!(s.done.ti instanceof Array))s.done.ti=[];
-  if(!(s.done.ans instanceof Array))s.done.ans=[];
-  if(!s.chap||typeof s.chap!=="object")s.chap={};
-  return s;
-}
-function gtClamp(b,p){
-  var t=GT_BOOKS[b].total,n=parseInt(p,10);
-  if(!(n>0))n=1;
-  if(n>t)n=t;
-  return n;
-}
-function gtPad3(n){return n<10?"00"+n:(n<100?"0"+n:""+n)}
-function gtImgSrc(b,p){return "assets/gt800/"+b+"/p"+gtPad3(gtClamp(b,p))+".jpeg"}
-function gtSaveState(){try{save(GT_KEY,GTSTATE)}catch(e){}}
-function gtActBooks(){return GTSTATE.dual?["ti","ans"]:[GTSTATE.book]}
-
-/* 单栏/双栏骨架 */
-function gtPanesHtml(books){
-  var h="";
-  books.forEach(function(b){
-    var t=GT_BOOKS[b].total,p=GTSTATE.page[b];
-    h+='<div class="gt-pane" data-pane="'+b+'">'
-      +'<div class="gt-head"><span class="gt-nm">'+GT_BOOKS[b].ic+" "+GT_BOOKS[b].n+'</span>'
-      +'<span class="chip chip-pri gt-pg">'+p+' / '+t+'</span>'
-      +'<span class="chip chip-mint gt-pct">已做 0%</span></div>'
-      +'<div class="gt-imgbox"><img class="gt-img" src="'+gtImgSrc(b,p)+'" alt="'+GT_BOOKS[b].n+' 第 '+p+' 页"></div>'
-      +'<div class="gt-ctl">'
-      +'<button class="btn" data-act="prev">← 上一页</button>'
-      +'<input class="input gt-jump" type="number" min="1" max="'+t+'" value="'+p+'" aria-label="'+GT_BOOKS[b].n+'跳转页码">'
-      +'<button class="btn" data-act="next">下一页 →</button>'
-      +'<button class="btn gt-mark" data-act="mark">✓ 标记本页已做</button>'
-      +'</div>'
-      +'<div class="gt-tip">点击图片可放大看细节 · 手机可双指缩放 · 键盘 ←/→ 翻页</div>'
-      +'</div>';
-  });
-  return h;
-}
-/* 单栏同步 */
-function gtSyncPane(b){
-  var pane=document.querySelector('#gt800View .gt-pane[data-pane="'+b+'"]');
-  if(!pane)return;
-  var p=GTSTATE.page[b],t=GT_BOOKS[b].total;
-  var img=pane.querySelector(".gt-img");
-  if(img){
-    var src=gtImgSrc(b,p);
-    if(img.getAttribute("src")!==src)img.setAttribute("src",src);
-    img.setAttribute("alt",GT_BOOKS[b].n+" 第 "+p+" 页");
-  }
-  var pgEl=pane.querySelector(".gt-pg");if(pgEl)pgEl.textContent=p+" / "+t;
-  var pct=Math.round(GTSTATE.done[b].length/t*100);
-  var pctEl=pane.querySelector(".gt-pct");if(pctEl)pctEl.textContent="已做 "+pct+"%";
-  var inp=pane.querySelector(".gt-jump");
-  if(inp&&document.activeElement!==inp)inp.value=p;
-  var mk=pane.querySelector('[data-act="mark"]');
-  if(mk){
-    var done=GTSTATE.done[b].indexOf(p)>-1;
-    mk.textContent=done?"☑ 已做(点击取消)":"✓ 标记本页已做";
-    mk.className=done?"btn btn-pri":"btn";
-  }
-}
-function gtSyncAll(){
-  gtActBooks().forEach(function(b){gtSyncPane(b)});
-}
-/* 进度条 */
-function gtPaintProg(){
-  var el=document.getElementById("gtProg");if(!el)return;
-  var h="";
-  gtActBooks().forEach(function(b){
-    var t=GT_BOOKS[b].total,d=GTSTATE.done[b].length,pct=Math.round(d/t*100);
-    h+='<div class="gt-prow"><span class="gt-pname">'+GT_BOOKS[b].ic+" "+GT_BOOKS[b].n+'</span>'
-      +'<div class="gt-bar"><i style="width:'+pct+'%"></i></div><b>'+pct+'%</b>'
-      +'<span>已做 '+d+' / '+t+' 页</span></div>';
-  });
-  el.innerHTML=h;
-}
-/* 册别/模式按钮态 */
-function gtPaintBtns(){
-  document.querySelectorAll("[data-gtbook]").forEach(function(b){
-    var on=b.getAttribute("data-gtbook")===GTSTATE.book;
-    b.className="btn"+(on?" btn-pri":"");
-    b.disabled=GTSTATE.dual;
-    b.style.opacity=GTSTATE.dual?".45":"1";
-  });
-  document.querySelectorAll("[data-gtmode]").forEach(function(b){
-    var on=(b.getAttribute("data-gtmode")==="dual")===GTSTATE.dual;
-    b.className="btn"+(on?" btn-pri":"");
-  });
-}
-/* 主视图重绘 */
-function gtRenderView(force){
-  var box=document.getElementById("gt800View");if(!box)return;
-  var books=gtActBooks();
-  box.className="gt-grid"+(GTSTATE.dual?" dual":"");
-  if(force||box.getAttribute("data-books")!==books.join(",")){
-    box.innerHTML=gtPanesHtml(books);
-    box.setAttribute("data-books",books.join(","));
-  }
-  if(books.indexOf(GTFOCUS)<0)GTFOCUS=books[0];
-  gtSyncAll();
-  gtPaintProg();
-  gtFocusPane(GTFOCUS);
-  var t=document.getElementById("gtViewTitle");
-  if(t)t.innerHTML='<span class="ic">'+(GTSTATE.dual?"🪟":"📖")+'</span>'+(GTSTATE.dual?"双栏对照 · 左习题｜右答案":"单栏阅读 · "+GT_BOOKS[GTSTATE.book].n);
-}
-function gtFocusPane(b){
-  GTFOCUS=b;
-  document.querySelectorAll("#gt800View .gt-pane").forEach(function(p){
-    if(p.getAttribute("data-pane")===b)p.classList.add("active");
-    else p.classList.remove("active");
-  });
-}
-/* 翻页 */
-function gtTurn(b,d){
-  var t=GT_BOOKS[b].total,cur=GTSTATE.page[b],np=cur+d;
-  if(np<1){toast("已经是"+GT_BOOKS[b].n+"第一页","warn");return}
-  if(np>t){toast("已经是"+GT_BOOKS[b].n+"最后一页","warn");return}
-  GTSTATE.page[b]=np;
-  gtSaveState();gtSyncPane(b);gtPaintProg();
-}
-function gtJumpTo(b,p){
-  var np=gtClamp(b,p);
-  GTSTATE.page[b]=np;
-  gtSaveState();gtSyncPane(b);gtPaintProg();
-}
-/* 标记本页已做 */
-function gtMark(b){
-  var p=GTSTATE.page[b],arr=GTSTATE.done[b],i=arr.indexOf(p);
-  if(i>-1){arr.splice(i,1);toast("已取消 "+GT_BOOKS[b].n+" 第 "+p+" 页标记","warn")}
-  else{arr.push(p);toast("✅ 已标记 "+GT_BOOKS[b].n+" 第 "+p+" 页","ok")}
-  gtSaveState();gtSyncPane(b);gtPaintProg();
-}
-/* 图片放大切换 */
-function gtZoom(img){
-  if(img.classList.contains("actual"))img.classList.remove("actual");
-  else img.classList.add("actual");
-}
-/* 阅读区事件 */
-function gtViewClick(e){
-  var t=e.target;if(!t||!t.getAttribute)return;
-  var pane=t.closest?t.closest(".gt-pane"):null;
-  if(pane)gtFocusPane(pane.getAttribute("data-pane"));
-  if(t.classList&&t.classList.contains("gt-img")){gtZoom(t);return}
-  var act=t.getAttribute("data-act");
-  if(!act)return;
-  var b=pane?pane.getAttribute("data-pane"):GTSTATE.book;
-  if(act==="prev")gtTurn(b,-1);
-  else if(act==="next")gtTurn(b,1);
-  else if(act==="mark")gtMark(b);
-}
-function gtViewChange(e){
-  var t=e.target;
-  if(!t||!t.classList||!t.classList.contains("gt-jump"))return;
-  var pane=t.closest?t.closest(".gt-pane"):null;
-  if(!pane)return;
-  var b=pane.getAttribute("data-pane");
-  var v=parseInt(t.value,10);
-  if(!(v>0))v=GTSTATE.page[b];
-  v=gtClamp(b,v);
-  gtJumpTo(b,v);
-  toast("已跳到第 "+v+" 页","ok");
-}
-/* 章节索引 */
-function gtChapHtml(){
-  var s=gtState(),h="";
-  GT_CHAP.forEach(function(sec,si){
-    h+='<div class="gt-sec"><div class="gt-sectitle">'+esc(sec.sec)+'</div>';
-    sec.items.forEach(function(it,ii){
-      var key=si+"-"+ii,on=!!s.chap[key];
-      h+='<div class="chap gt-chap'+(on?" done":"")+'" data-chap="'+key+'" role="button" tabindex="0" aria-pressed="'+(on?"true":"false")+'">'
-        +'<div class="top"><div class="nm">'+esc(it.n)+'</div><div class="cb'+(on?" on":"")+'">✓</div></div>'
-        +'<div class="sub gt-q">'
-        +it.q.map(function(q,i2){
-          var cls=["chip-pri","chip-warm","chip-pink","chip-mint"][i2%4];
-          return '<span class="chip '+cls+'">'+esc(q[0])+" "+esc(q[1])+'</span>';
-        }).join("")
-        +'</div></div>';
-    });
-    h+='</div>';
-  });
-  return h;
-}
-function gtToggleChap(el){
-  var key=el.getAttribute("data-chap");
-  if(GTSTATE.chap[key])delete GTSTATE.chap[key];
-  else GTSTATE.chap[key]=true;
-  var on=!!GTSTATE.chap[key];
-  if(on)el.classList.add("done");else el.classList.remove("done");
-  el.setAttribute("aria-pressed",on?"true":"false");
-  var cb=el.querySelector(".cb");
-  if(cb){if(on)cb.classList.add("on");else cb.classList.remove("on")}
-  gtSaveState();gtPaintChapStat();
-  toast(on?"已标记本章完成":"已取消本章标记",on?"ok":"warn");
-}
-function gtPaintChapStat(){
-  var el=document.getElementById("gtChapStat");if(!el)return;
-  var total=0,s=gtState();
-  GT_CHAP.forEach(function(sec){total+=sec.items.length});
-  var done=0;
-  GT_CHAP.forEach(function(sec,si){
-    sec.items.forEach(function(it,ii){if(s.chap[si+"-"+ii])done++});
-  });
-  el.textContent="已完成 "+done+" / "+total+" 章";
-}
-/* 键盘:←/→ 翻页, Home/End 首末页 */
-function gtOnKey(e){
-  if(currentPage!=="gt800")return;
-  var tag=(e.target&&e.target.tagName)||"";
-  if(tag==="INPUT"||tag==="TEXTAREA"||tag==="SELECT")return;
-  var b=GTFOCUS||GTSTATE.book;
-  if(!GT_BOOKS[b])b=GTSTATE.book;
-  if(e.key==="ArrowLeft"){e.preventDefault();gtTurn(b,-1)}
-  else if(e.key==="ArrowRight"){e.preventDefault();gtTurn(b,1)}
-  else if(e.key==="Home"){e.preventDefault();gtJumpTo(b,1)}
-  else if(e.key==="End"){e.preventDefault();gtJumpTo(b,GT_BOOKS[b].total)}
-}
-register("gt800",function(){
-  return '<div class="card gradient-pri"><h2 style="color:var(--pri)"><span class="ic">🧮</span>杰哥800题</h2>'
-    +'<p style="font-size:15px;color:var(--sub);line-height:1.65">高数 800 题原册 · 习题册 158 页 + 答案册 178 页 · 刷题与答案对照一站搞定</p>'
-    +'<p style="font-size:15px;color:var(--dim);margin-top:6px">题库为扫描版原图，后续可分批 OCR 升级为结构化题库</p></div>'
-    +'<div class="card" id="gtCtrl"><h2><span class="ic">🎛</span>刷题设置</h2>'
-    +'<div class="row2">'
-    +'<div class="f"><label style="display:block;font-size:15px;color:var(--sub);margin-bottom:6px;font-weight:600">册别</label>'
-    +'<div class="gt-seg"><button class="btn btn-pri" data-gtbook="ti">📘 习题册</button><button class="btn" data-gtbook="ans">📗 答案册</button></div></div>'
-    +'<div class="f"><label style="display:block;font-size:15px;color:var(--sub);margin-bottom:6px;font-weight:600">阅读模式</label>'
-    +'<div class="gt-seg"><button class="btn btn-pri" data-gtmode="single">📖 单栏</button><button class="btn" data-gtmode="dual">🪟 双栏对照</button></div></div>'
-    +'</div><div id="gtProg"></div></div>'
-    +'<div class="card"><h2 id="gtViewTitle"><span class="ic">📖</span>单栏阅读</h2>'
-    +'<div class="gt-grid" id="gt800View"></div></div>'
-    +'<div class="card"><h2><span class="ic">📑</span>章节索引 <span id="gtChapStat" style="font-size:15px;color:var(--sub);font-weight:400"></span></h2>'
-    +'<p style="font-size:15px;color:var(--sub);margin-bottom:12px">点击章节卡片 = 标记本章已完成(纯索引,不跳页码)</p>'
-    +'<div id="gtChaps">'+gtChapHtml()+'</div></div>';
-},function(){
-  GTSTATE=gtState();
-  GTFOCUS=GTSTATE.book;
-  gtRenderView(true);
-  gtPaintBtns();
-  gtPaintChapStat();
-  var ctrl=document.getElementById("gtCtrl");
-  if(ctrl)ctrl.addEventListener("click",function(e){
-    var t=e.target;if(!t||!t.getAttribute)return;
-    var gb=t.getAttribute("data-gtbook"),gm=t.getAttribute("data-gtmode");
-    if(gb){
-      if(GTSTATE.dual){toast("双栏模式下左右固定为习题/答案","warn");return}
-      if(gb===GTSTATE.book)return;
-      GTSTATE.book=gb;gtSaveState();GTFOCUS=gb;gtRenderView(true);gtPaintBtns();return;
-    }
-    if(gm){
-      var dual=gm==="dual";
-      if(dual===GTSTATE.dual)return;
-      GTSTATE.dual=dual;gtSaveState();
-      if(dual)GTFOCUS="ti";
-      gtRenderView(true);gtPaintBtns();return;
-    }
-  });
-  var view=document.getElementById("gt800View");
-  if(view){
-    view.addEventListener("click",gtViewClick);
-    view.addEventListener("change",gtViewChange);
-    view.addEventListener("keydown",function(e){
-      if(e.target&&e.target.classList&&e.target.classList.contains("gt-jump")&&e.key==="Enter"){e.preventDefault();e.target.blur()}
-    });
-  }
-  var ch=document.getElementById("gtChaps");
-  if(ch){
-    ch.addEventListener("click",function(e){
-      var c=e.target&&e.target.closest?e.target.closest(".gt-chap"):null;
-      if(c)gtToggleChap(c);
-    });
-    ch.addEventListener("keydown",function(e){
-      if(e.key!=="Enter"&&e.key!==" ")return;
-      var c=e.target&&e.target.closest?e.target.closest(".gt-chap"):null;
-      if(!c||e.target!==c)return;
-      e.preventDefault();gtToggleChap(c);
-    });
-  }
-  /* 键盘监听:先摘旧监听,避免重复绑定 */
-  if(window._gt800Keys)document.removeEventListener("keydown",window._gt800Keys);
-  window._gt800Keys=gtOnKey;
-  document.addEventListener("keydown",window._gt800Keys);
-});
 
 /* ============================================================
    杰哥800题·纯文本(结构化题库入口页)
    - 数据源: 同目录 gt800-text.html (GT_DATA 800 题, localStorage 键 zsb6_gt800_text)
-   - 本页只读 mastered 统计, 不写任何 key, 不影响图片版(gt800)
+   - 本页只读 mastered 统计, 不写任何 key
    ============================================================ */
 var GTT_KEY="zsb6_gt800_text";
 var GTT_TOTAL=800;
@@ -1711,9 +1360,8 @@ register("gt800t",function(){
   return '<div id="gt800tView">'
     +'<div class="card gradient-pri"><h2 style="color:var(--pri)"><span class="ic">📝</span>杰哥800题 · 纯文本</h2>'
     +'<p style="font-size:15px;color:var(--sub);line-height:1.65">800 题结构化题库 · 题干 / 答案 / 解析全部为可搜索文本 · 基础 9 章 + 强化 7 章 · 公式本地渲染，断网也能刷</p>'
-    +'<p style="font-size:15px;color:var(--dim);margin-top:6px">与图片版同一套原题，纯文本版可按题号/关键词检索、章节筛选、顺序刷题</p>'
-    +'<div class="gtt-act"><a class="btn btn-pri" href="gt800-text.html">🚀 进入题库刷题</a>'
-    +'<button class="btn" data-gtt="img">🖼 切换图片版</button></div></div>'
+    +'<p style="font-size:15px;color:var(--dim);margin-top:6px">题答一一对应，可按题号/关键词检索、章节筛选、顺序刷题，进度自动存档</p>'
+    +'<div class="gtt-act"><a class="btn btn-pri" href="gt800-text.html">🚀 进入题库刷题</a></div></div>'
     +'<div class="card"><h2><span class="ic">📊</span>题量与章节统计</h2>'
     +'<div class="gtt-stat">'
     +'<div class="gtt-s"><div class="v">'+GTT_TOTAL+'</div><div class="k">总题数</div></div>'
@@ -1735,8 +1383,7 @@ register("gt800t",function(){
       var t=e.target&&e.target.closest?e.target.closest("[data-gtt]"):null;
       if(!t)return;
       var a=t.getAttribute("data-gtt");
-      if(a==="img")showPage("gt800");
-      else if(a==="text")window.location.href="gt800-text.html";
+      if(a==="text")window.location.href="gt800-text.html";
     });
   }
 });
